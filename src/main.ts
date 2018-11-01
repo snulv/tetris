@@ -12,12 +12,11 @@ const FPS = 60;
 const MS_IN_A_FRAME = 1000 / FPS;
 const DROP_SPEED = 500;
 
-let matrix;
-let playBlock;
+let matrix: Matrix;
 let timeSinceLastDrop;
 
 document.addEventListener('keydown', (event) => {
-  onKeyDown(event, playBlock, matrix);
+  onKeyDown(event, matrix);
 }, false);
 document.addEventListener('keyup', (event) => {
   onKeyUp(event);
@@ -30,9 +29,14 @@ export default function main() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
 
+  matrix.checkForAndRemoveFullLines();
   moveBlock();
-  playBlock.draw(ctx);
+
   matrix.draw(ctx);
+
+  if(matrix.checkFailConditions()) {
+    startNewGame();
+  }
 
   if (playing) {
     setTimeout(main, MS_IN_A_FRAME);
@@ -41,7 +45,6 @@ export default function main() {
 
 function startNewGame() {
   matrix = new Matrix();
-  playBlock = new PlayBlock(5, 1);
   timeSinceLastDrop = DROP_SPEED;
 }
 
@@ -52,12 +55,7 @@ function moveBlock() {
     return;
   }
   timeSinceLastDrop = DROP_SPEED;
-  if(playBlock.drop(matrix)) {
-    return; // Do nothing if it drops
-  }
-  if(playBlock.y <= 1) {
-    startNewGame();
-    return; // startNewGame is it doesn't drop and is in the top
-  }
-  playBlock = new PlayBlock(5, 1)
+
+  matrix.drop();
+
 }

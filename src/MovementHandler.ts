@@ -1,24 +1,22 @@
-import PlayBlock from "./PlayBlock";
 import Matrix from "./Matrix";
 
-export function onKeyDown(event, playBlock: PlayBlock, matrix: Matrix) {
+export function onKeyDown(event, matrix: Matrix) {
   const keyName = event.key;
 
   // console.log(keyName);
 
   switch (keyName) {
     case 'ArrowUp':
-      console.log('isPressedUp');
-      playBlock.rotate(matrix);
+      matrix.playBlock.rotate(matrix);
       break;
     case 'ArrowRight':
-      playBlock.moveRight(matrix);
+      matrix.playBlock.moveRight(matrix);
       break;
     case 'ArrowDown':
-      playBlock.drop(matrix);
+      matrix.drop();
       break;
     case 'ArrowLeft':
-      playBlock.moveLeft(matrix);
+      matrix.playBlock.moveLeft(matrix);
       break;
   }
 }

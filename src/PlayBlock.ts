@@ -1,17 +1,37 @@
 import Matrix from "./Matrix";
 import Shapes, {EAST, NORTH, SOUTH, WEST} from "./shapes/Shapes";
 import LShape from "./shapes/LShape";
+import IShape from "./shapes/IShape";
+import JShape from "./shapes/JShape";
+import OShape from "./shapes/OShape";
+import TShape from "./shapes/TShape";
+import SShape from "./shapes/SShape";
+import ZShape from "./shapes/ZShape";
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 export default class PlayBlock {
-  private x: number;
-  private y: number;
+  public x: number;
+  public y: number;
   private shape: Shapes;
   private rotation: SOUTH | EAST | NORTH | WEST;
+
+  static SHAPE_ARRAY = [
+    IShape,
+    LShape,
+    JShape,
+    OShape,
+    TShape,
+    SShape,
+    ZShape,
+  ];
 
   constructor(x: number, y: number, shape?: Shapes, rotation?: SOUTH | EAST | NORTH | WEST) {
     this.x = x;
     this.y = y;
-    this.shape = shape ? shape : new LShape();
+    this.shape = shape ? shape : new PlayBlock.SHAPE_ARRAY[getRandomInt(0, PlayBlock.SHAPE_ARRAY.length - 1)]();
     this.rotation = rotation ? rotation : EAST;
   }
 
