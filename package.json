@@ -4,18 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/lodash": "^4.14.117",
     "parcel-bundler": "^1.10.3",
     "typescript": "^3.1.4"
-  },
-  "dependencies": {
-    "lodash": "^4.17.11",
-    "main.js": "0.0.1",
-    "matrix": "^1.0.3"
   }
 }
